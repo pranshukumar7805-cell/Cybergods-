@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CYBERGODS ESPORTS</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#05070b;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ---------- NAVBAR ---------- */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:70px;
+    background:rgba(5,7,11,0.92);
+    backdrop-filter:blur(12px);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 7%;
+    z-index:1000;
+    border-bottom:1px solid rgba(0,180,255,0.2);
+}
+
+.logo{
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.logo span{
+    color:#00b7ff;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:#ccc;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#00b7ff;
+}
+
+/* ---------- HERO ---------- */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:100px 20px 50px;
+    position:relative;
+    background:
+        radial-gradient(circle at center, rgba(0,150,255,.15), transparent 45%),
+        #05070b;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    border:1px solid rgba(0,183,255,.15);
+    border-radius:50%;
+    animation:pulse 4s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(.8);opacity:.3}
+    50%{transform:scale(1.2);opacity:.8}
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 18px;
+    border:1px solid #00b7ff;
+    border-radius:30px;
+    color:#00b7ff;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:2px;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:clamp(50px,12vw,110px);
+    line-height:.9;
+    letter-spacing:5px;
+    font-weight:1000;
+    text-shadow:0 0 30px rgba(0,183,255,.4);
+}
+
+.hero h1 span{
+    color:#00b7ff;
+}
+
+.hero p{
+    margin:25px auto;
+    max-width:600px;
+    color:#aeb7c2;
+    font-size:17px;
+}
+
+.slogan{
+    color:white;
+    font-size:13px;
+    letter-spacing:3px;
+    margin-bottom:30px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:14px 25px;
+    border-radius:5px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.primary{
+    background:#00b7ff;
+    color:#001018;
+}
+
+.secondary{
+    border:1px solid #00b7ff;
+    color:#00b7ff;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 20px rgba(0,183,255,.3);
+}
+
+/* ---------- SECTIONS ---------- */
+
+section{
+    padding:90px 7%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:38px;
+    letter-spacing:2px;
+}
+
+.section-title span{
+    color:#00b7ff;
+}
+
+.section-title p{
+    color:#78818d;
+    margin-top:10px;
+}
+
+/* ---------- STATS ---------- */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.stat{
+    background:#0a0e14;
+    border:1px solid #151e29;
+    padding:25px;
+    text-align:center;
+    border-radius:10px;
+}
+
+.stat h3{
+    font-size:32px;
+    color:#00b7ff;
+}
+
+.stat p{
+    color:#7f8995;
+    margin-top:7px;
+    font-size:13px;
+}
+
+/* ---------- PLAYER ---------- */
+
+.player-container{
+    max-width:900px;
+    margin:auto;
+}
+
+.player-card{
+    background:linear-gradient(145deg,#0d131c,#07090d);
+    border:1px solid #173247;
+    border-radius:15px;
+    padding:30px;
+    display:flex;
+    gap:30px;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.player-card::after{
+    content:"CG";
+    position:absolute;
+    right:-20px;
+    bottom:-50px;
+    font-size:180px;
+    font-weight:1000;
+    color:rgba(0,183,255,.03);
+}
+
+.player-avatar{
+    width:160px;
+    height:190px;
+    border-radius:12px;
+    border:2px solid #00b7ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#05070b;
+    color:#00b7ff;
+    font-size:55px;
+    font-weight:1000;
+}
+
+.player-info{
+    position:relative;
+    z-index:2;
+}
+
+.player-tag{
+    color:#00b7ff;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.player-info h3{
+    font-size:38px;
+    margin:7px 0;
+}
+
+.player-info .role{
+    color:#aaa;
+    margin-bottom:20px;
+}
+
+.player-details{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px 30px;
+}
+
+.detail{
+    color:#8d98a5;
+    font-size:13px;
+}
+
+.detail strong{
+    color:white;
+    display:block;
+    margin-top:4px;
+}
+
+/* ---------- ACHIEVEMENTS ---------- */
+
+.achievements{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.achievement{
+    background:#0a0e14;
+    border:1px solid #151e29;
+    padding:25px;
+    border-radius:10px;
+}
+
+.achievement .icon{
+    font-size:35px;
+}
+
+.achievement h3{
+    margin:12px 0 8px;
+}
+
+.achievement p{
+    color:#7e8894;
+    font-size:14px;
+}
+
+/* ---------- UPCOMING ---------- */
+
+.events{
+    max-width:850px;
+    margin:auto;
+}
+
+.event{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#0a0e14;
+    border:1px solid #151e29;
+    border-left:3px solid #00b7ff;
+    padding:20px;
+    margin-bottom:12px;
+    border-radius:5px;
+}
+
+.event h3{
+    font-size:17px;
+}
+
+.event p{
+    color:#7e8894;
+    margin-top:5px;
+    font-size:13px;
+}
+
+.event-date{
+    color:#00b7ff;
+    font-weight:bold;
+    font-size:13px;
+}
+
+/* ---------- FOOTER ---------- */
+
+footer{
+    text-align:center;
+    padding:40px 20px;
+    border-top:1px solid #151e29;
+    color:#69727d;
+}
+
+footer strong{
+    color:#00b7ff;
+}
+
+.social{
+    margin-top:15px;
+}
+
+.social a{
+    color:#aaa;
+    text-decoration:none;
+    margin:0 8px;
+}
+
+.social a:hover{
+    color:#00b7ff;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media(max-width:800px){
+
+    nav{
+        padding:0 5%;
+    }
+
+    nav ul{
+        gap:10px;
+    }
+
+    nav a{
+        font-size:11px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .achievements{
+        grid-template-columns:1fr;
+    }
+
+    .player-card{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .player-details{
+        text-align:left;
+    }
+
+    .event{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+}
+
+@media(max-width:500px){
+
+    nav{
+        height:auto;
+        padding:15px 5%;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .hero{
+        padding-top:150px;
+    }
+
+    nav ul{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:55px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    section{
+        padding:70px 5%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <div class="logo">
+        CYBER<span>GODS</span>
+    </div>
+
+    <ul>
+        <li><a href="#home">HOME</a></li>
+        <li><a href="#team">TEAM</a></li>
+        <li><a href="#events">EVENTS</a></li>
+        <li><a href="#achievements">ACHIEVEMENTS</a></li>
+    </ul>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            EST. 2026 • ESPORTS
+        </div>
+
+        <h1>
+            CYBER<span>GODS</span>
+        </h1>
+
+        <p>
+            Welcome to the official home of CYBERGODS Esports.
+            Built for competition. Driven by teamwork.
+        </p>
+
+        <div class="slogan">
+            WE DON'T PLAY GAMES, WE RULE THEM.
+        </div>
+
+        <div class="buttons">
+            <a href="#team" class="btn primary">
+                MEET THE TEAM
+            </a>
+
+            <a href="#events" class="btn secondary">
+                UPCOMING EVENTS
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TEAM STATS -->
+
+<section>
+
+    <div class="section-title">
+        <h2>TEAM <span>STATS</span></h2>
+        <p>Our journey starts here.</p>
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <h3>01</h3>
+            <p>ACTIVE PLAYER</p>
+        </div>
+
+        <div class="stat">
+            <h3>00</h3>
+            <p>TOURNAMENT WINS</p>
+        </div>
+
+        <div class="stat">
+            <h3>00</h3>
+            <p>MVP AWARDS</p>
+        </div>
+
+        <div class="stat">
+            <h3>2026</h3>
+            <p>ESTABLISHED</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PLAYER -->
+
+<section id="team">
+
+    <div class="section-title">
+
+        <h2>OUR <span>PLAYER</span></h2>
+
+        <p>
+            Meet the first warrior of CYBERGODS.
+        </p>
+
+    </div>
+
+
+    <div class="player-container">
+
+        <div class="player-card">
+
+            <div class="player-avatar">
+                CG
+            </div>
+
+
+            <div class="player-info">
+
+                <div class="player-tag">
+                    CG-001 • OFFICIAL TEAM MEMBER
+                </div>
+
+                <h3>PRANSHU</h3>
+
+                <div class="role">
+                    IGL / SNIPER
+                </div>
+
+
+                <div class="player-details">
+
+                    <div class="detail">
+                        IGN
+                        <strong>CG PRANSHU</strong>
+                    </div>
+
+                    <div class="detail">
+                        PLAYER ID
+                        <strong>CG-001</strong>
+                    </div>
+
+                    <div class="detail">
+                        ROLE
+                        <strong>IGL / SNIPER</strong>
+                    </div>
+
+                    <div class="detail">
+                        STATUS
+                        <strong>ACTIVE</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ACHIEVEMENTS -->
+
+<section id="achievements">
+
+    <div class="section-title">
+
+        <h2>TEAM <span>ACHIEVEMENTS</span></h2>
+
+        <p>
+            The wall is empty. Let's fill it.
+        </p>
+
+    </div>
+
+
+    <div class="achievements">
+
+        <div class="achievement">
+
+            <div class="icon">🏆</div>
+
+            <h3>FIRST VICTORY</h3>
+
+            <p>
+                Our first tournament victory will be recorded here.
+            </p>
+
+        </div>
+
+
+        <div class="achievement">
+
+            <div class="icon">⚡</div>
+
+            <h3>FIRST MVP</h3>
+
+            <p>
+                The first CYBERGODS MVP will be added here.
+            </p>
+
+        </div>
+
+
+        <div class="achievement">
+
+            <div class="icon">👑</div>
+
+            <h3>LEGACY</h3>
+
+            <p>
+                Building a competitive esports organization
+                one match at a time.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EVENTS -->
+
+<section id="events">
+
+    <div class="section-title">
+
+        <h2>UPCOMING <span>EVENTS</span></h2>
+
+        <p>
+            Scrims and tournaments will appear here.
+        </p>
+
+    </div>
+
+
+    <div class="events">
+
+        <div class="event">
+
+            <div>
+                <h3>CYBERGODS SCRIM #001</h3>
+                <p>
+                    Opponent: TBD • Mode: Squad
+                </p>
+            </div>
+
+            <div class="event-date">
+                COMING SOON
+            </div>
+
+        </div>
+
+
+        <div class="event">
+
+            <div>
+                <h3>FIRST TOURNAMENT</h3>
+                <p>
+                    Tournament information will be added here.
+                </p>
+            </div>
+
+            <div class="event-date">
+                TBD
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <strong>CYBERGODS ESPORTS</strong>
+
+    <div class="social">
+
+        <a href="#">Instagram</a>
+        <a href="#">YouTube</a>
+        <a href="#">Discord</a>
+
+    </div>
+
+    <p style="margin-top:15px;">
+        © 2026 CYBERGODS ESPORTS. All rights reserved.
+    </p>
+
+</footer>
+
+
+</body>
+</html>
