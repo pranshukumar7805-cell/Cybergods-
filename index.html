@@ -960,7 +960,32 @@ async function adminLogin() {
             <option value="inactive">Inactive</option>
 
         </select>
+<label style="
+    display:block;
+    text-align:left;
+    margin-top:15px;
+    margin-bottom:8px;
+    color:#00f5ff;
+    font-weight:bold;
+">
+    PLAYER PHOTO
+</label>
 
+<input
+    id="player-photo"
+    type="file"
+    accept="image/jpeg,image/png,image/webp"
+    style="
+        width:100%;
+        box-sizing:border-box;
+        padding:12px;
+        margin-bottom:15px;
+        background:#05070b;
+        color:white;
+        border:1px solid #333;
+        border-radius:8px;
+    "
+>
         <button onclick="addPlayer()" style="
             width:100%;
             padding:15px;
