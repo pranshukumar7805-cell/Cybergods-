@@ -855,9 +855,16 @@ async function adminLogin() {
 
     message.textContent = "✅ Login successful!";
 
-    setTimeout(() => {
-        window.location.href = "#admin-dashboard";
-    }, 800);
+const dashboard =
+    document.getElementById("admin-dashboard");
+
+dashboard.style.display = "block";
+
+setTimeout(() => {
+    dashboard.scrollIntoView({
+        behavior: "smooth"
+    });
+}, 300);
 }
 </script>
     <!-- ADMIN DASHBOARD -->
