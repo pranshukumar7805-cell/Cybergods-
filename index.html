@@ -1036,6 +1036,7 @@ async function checkAdmin() {
     }
 }
 
+<script>
 async function addPlayer() {
 
     const name =
@@ -1053,6 +1054,9 @@ async function addPlayer() {
     const status =
         document.getElementById("player-status").value;
 
+    const photoInput =
+        document.getElementById("player-photo");
+
     const message =
         document.getElementById("dashboard-message");
 
@@ -1061,6 +1065,36 @@ async function addPlayer() {
         return;
     }
 
+    let image_url = null;
+
+    // PHOTO UPLOAD
+    if (photoInput.files.length > 0) {
+
+        const file = photoInput.files[0];
+
+        const fileName =
+            Date.now() + "-" + file.name.replace(/\s+/g, "-");
+
+        const { error: uploadError } =
+            await supabaseClient.storage
+                .from("player-images")
+                .upload(fileName, file);
+
+        if (uploadError) {
+            message.textContent =
+                "❌ Photo upload failed: " + uploadError.message;
+            return;
+        }
+
+        const { data: publicUrlData } =
+            supabaseClient.storage
+                .from("player-images")
+                .getPublicUrl(fileName);
+
+        image_url = publicUrlData.publicUrl;
+    }
+
+    // PLAYER DATABASE ENTRY
     const { error } = await supabaseClient
         .from("Players")
         .insert([
@@ -1069,7 +1103,8 @@ async function addPlayer() {
                 ign: ign,
                 role: role,
                 player_id: player_id,
-                status: status
+                status: status,
+                image_url: image_url
             }
         ]);
 
@@ -1078,13 +1113,16 @@ async function addPlayer() {
         return;
     }
 
-    message.textContent = "✅ Player added successfully!";
+    message.textContent =
+        "✅ Player + Photo added successfully!";
 
     document.getElementById("player-name").value = "";
     document.getElementById("player-ign").value = "";
     document.getElementById("player-role").value = "";
     document.getElementById("player-id").value = "";
+    document.getElementById("player-photo").value = "";
 }
+</script>
 
 async function adminLogout() {
 
