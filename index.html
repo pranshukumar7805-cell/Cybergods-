@@ -984,17 +984,18 @@ async function adminLogin() {
 <script>
 async function checkAdmin() {
 
-    const { data: { user } } =
-        await supabaseClient.auth.getUser();
-
     const dashboard =
         document.getElementById("admin-dashboard");
 
-    if (user) {
-        dashboard.style.display = "block";
+    // Admin dashboard default me hidden rahega
+    dashboard.style.display = "none";
 
+    const { data: { user } } =
+        await supabaseClient.auth.getUser();
+
+    if (user) {
         document.getElementById("admin-status").textContent =
-            "✅ Logged in as " + user.email;
+            "🔐 Admin session active";
     }
 }
 
