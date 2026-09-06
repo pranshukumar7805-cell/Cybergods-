@@ -898,5 +898,181 @@ async function adminLogin() {
     }, 800);
 }
 </script>
+    <!-- ADMIN DASHBOARD -->
+<section id="admin-dashboard" style="
+    display:none;
+    padding:80px 20px;
+    background:#05070b;
+    color:white;
+">
+
+    <div style="
+        max-width:700px;
+        margin:auto;
+        padding:30px;
+        background:#0b1018;
+        border:1px solid #00f5ff;
+        border-radius:15px;
+        box-shadow:0 0 25px rgba(0,245,255,0.2);
+    ">
+
+        <h2 style="
+            color:#00f5ff;
+            text-align:center;
+            letter-spacing:3px;
+        ">
+            CYBERGODS ADMIN PANEL
+        </h2>
+
+        <p id="admin-status" style="text-align:center;">
+            Checking login...
+        </p>
+
+        <hr>
+
+        <h3 style="color:#00f5ff;">ADD PLAYER</h3>
+
+        <input id="player-name" type="text"
+            placeholder="Player Name"
+            style="width:100%;box-sizing:border-box;padding:14px;margin:8px 0;
+            background:#05070b;color:white;border:1px solid #333;border-radius:8px;">
+
+        <input id="player-ign" type="text"
+            placeholder="IGN"
+            style="width:100%;box-sizing:border-box;padding:14px;margin:8px 0;
+            background:#05070b;color:white;border:1px solid #333;border-radius:8px;">
+
+        <input id="player-role" type="text"
+            placeholder="Role e.g. IGL / Rusher / Sniper"
+            style="width:100%;box-sizing:border-box;padding:14px;margin:8px 0;
+            background:#05070b;color:white;border:1px solid #333;border-radius:8px;">
+
+        <input id="player-id" type="text"
+            placeholder="Player ID e.g. CG-001"
+            style="width:100%;box-sizing:border-box;padding:14px;margin:8px 0;
+            background:#05070b;color:white;border:1px solid #333;border-radius:8px;">
+
+        <select id="player-status"
+            style="width:100%;box-sizing:border-box;padding:14px;margin:8px 0;
+            background:#05070b;color:white;border:1px solid #333;border-radius:8px;">
+
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+
+        </select>
+
+        <button onclick="addPlayer()" style="
+            width:100%;
+            padding:15px;
+            margin-top:15px;
+            background:#00f5ff;
+            color:#05070b;
+            border:0;
+            border-radius:8px;
+            font-weight:bold;
+            cursor:pointer;
+        ">
+            ➕ ADD PLAYER
+        </button>
+
+        <button onclick="adminLogout()" style="
+            width:100%;
+            padding:13px;
+            margin-top:12px;
+            background:transparent;
+            color:#ff4d6d;
+            border:1px solid #ff4d6d;
+            border-radius:8px;
+            font-weight:bold;
+            cursor:pointer;
+        ">
+            LOGOUT
+        </button>
+
+        <p id="dashboard-message" style="text-align:center;margin-top:15px;"></p>
+
+    </div>
+</section>
+
+<script>
+async function checkAdmin() {
+
+    const { data: { user } } =
+        await supabaseClient.auth.getUser();
+
+    const dashboard =
+        document.getElementById("admin-dashboard");
+
+    if (user) {
+        dashboard.style.display = "block";
+
+        document.getElementById("admin-status").textContent =
+            "✅ Logged in as " + user.email;
+    }
+}
+
+async function addPlayer() {
+
+    const name =
+        document.getElementById("player-name").value.trim();
+
+    const ign =
+        document.getElementById("player-ign").value.trim();
+
+    const role =
+        document.getElementById("player-role").value.trim();
+
+    const player_id =
+        document.getElementById("player-id").value.trim();
+
+    const status =
+        document.getElementById("player-status").value;
+
+    const message =
+        document.getElementById("dashboard-message");
+
+    if (!name || !ign || !role || !player_id) {
+        message.textContent = "❌ Please fill all fields.";
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("Players")
+        .insert([
+            {
+                name: name,
+                ign: ign,
+                role: role,
+                player_id: player_id,
+                status: status
+            }
+        ]);
+
+    if (error) {
+        message.textContent = "❌ " + error.message;
+        return;
+    }
+
+    message.textContent = "✅ Player added successfully!";
+
+    document.getElementById("player-name").value = "";
+    document.getElementById("player-ign").value = "";
+    document.getElementById("player-role").value = "";
+    document.getElementById("player-id").value = "";
+}
+
+async function adminLogout() {
+
+    await supabaseClient.auth.signOut();
+
+    document.getElementById("admin-dashboard").style.display = "none";
+
+    document.getElementById("admin-login").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+checkAdmin();
+</script>
 </body>
 </html>
