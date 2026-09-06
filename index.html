@@ -784,6 +784,119 @@ console.log("CYBERGODS Supabase connected!");
 
 </footer>
 
+<!-- ADMIN LOGIN -->
+<section id="admin-login" style="
+    padding:100px 20px;
+    text-align:center;
+    background:#05070b;
+">
 
+    <h2 style="
+        color:#00f5ff;
+        font-size:32px;
+        letter-spacing:3px;
+        text-shadow:0 0 15px #00f5ff;
+        margin-bottom:35px;
+    ">
+        ADMIN LOGIN
+    </h2>
+
+    <div style="
+        max-width:400px;
+        margin:auto;
+        padding:35px;
+        background:#0b1018;
+        border:1px solid #00f5ff;
+        border-radius:15px;
+        box-shadow:0 0 25px rgba(0,245,255,0.25);
+    ">
+
+        <input
+            type="email"
+            id="admin-email"
+            placeholder="Admin Email"
+            style="
+                width:100%;
+                box-sizing:border-box;
+                padding:15px;
+                margin-bottom:18px;
+                background:#05070b;
+                color:#fff;
+                border:1px solid #333;
+                border-radius:8px;
+                outline:none;
+            "
+        >
+
+        <input
+            type="password"
+            id="admin-password"
+            placeholder="Password"
+            style="
+                width:100%;
+                box-sizing:border-box;
+                padding:15px;
+                margin-bottom:22px;
+                background:#05070b;
+                color:#fff;
+                border:1px solid #333;
+                border-radius:8px;
+                outline:none;
+            "
+        >
+
+        <button
+            onclick="adminLogin()"
+            style="
+                width:100%;
+                padding:15px;
+                background:#00f5ff;
+                color:#05070b;
+                border:none;
+                border-radius:8px;
+                font-size:16px;
+                font-weight:bold;
+                letter-spacing:2px;
+                cursor:pointer;
+                box-shadow:0 0 20px rgba(0,245,255,0.45);
+            "
+        >
+            LOGIN
+        </button>
+
+        <p id="login-message" style="
+            margin-top:18px;
+            color:#00f5ff;
+        "></p>
+
+    </div>
+</section>
+
+<script>
+async function adminLogin() {
+    const email = document.getElementById("admin-email").value;
+    const password = document.getElementById("admin-password").value;
+    const message = document.getElementById("login-message");
+
+    message.textContent = "Logging in...";
+
+    const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+    if (error) {
+        message.textContent = "❌ " + error.message;
+        return;
+    }
+
+    message.textContent = "✅ Login successful!";
+
+    setTimeout(() => {
+        window.location.href = "#admin-dashboard";
+    }, 800);
+}
+</script>
 </body>
 </html>
