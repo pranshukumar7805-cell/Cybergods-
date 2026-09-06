@@ -1098,5 +1098,97 @@ async function adminLogout() {
 
 checkAdmin();
 </script>
+    <script>
+async function loadPlayers() {
+
+    const container =
+        document.getElementById("players-container");
+
+    if (!container) return;
+
+    container.innerHTML = "Loading players...";
+
+    const { data, error } =
+        await supabaseClient
+            .from("Players")
+            .select("*")
+            .order("created_at", { ascending: true });
+
+    if (error) {
+        container.innerHTML =
+            "❌ Unable to load players.";
+        console.error(error);
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        container.innerHTML =
+            "No players added yet.";
+        return;
+    }
+
+    container.innerHTML = "";
+
+    data.forEach(player => {
+
+        const card = document.createElement("div");
+        card.className = "player-card";
+
+        card.innerHTML = `
+
+            <div class="player-avatar">
+                ${player.image_url
+                    ? `<img src="${player.image_url}"
+                         alt="${player.name}"
+                         style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">`
+                    : "CG"
+                }
+            </div>
+
+            <div class="player-info">
+
+                <div class="player-tag">
+                    ${player.player_id} • OFFICIAL TEAM MEMBER
+                </div>
+
+                <h3>${player.name}</h3>
+
+                <div class="role">
+                    ${player.role}
+                </div>
+
+                <div class="player-details">
+
+                    <div class="detail">
+                        IGN
+                        <strong>${player.ign}</strong>
+                    </div>
+
+                    <div class="detail">
+                        PLAYER ID
+                        <strong>${player.player_id}</strong>
+                    </div>
+
+                    <div class="detail">
+                        ROLE
+                        <strong>${player.role}</strong>
+                    </div>
+
+                    <div class="detail">
+                        STATUS
+                        <strong>${player.status.toUpperCase()}</strong>
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+loadPlayers();
+</script>
 </body>
 </html>
