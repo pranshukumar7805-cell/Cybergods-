@@ -1204,7 +1204,7 @@ async function addPlayer() {
 
     // PLAYER DATABASE ENTRY
     const { error } = await supabaseClient
-        .from("Players")
+        .from("players_public")
         .insert([
             {
                 name: name,
