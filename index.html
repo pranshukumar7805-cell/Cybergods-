@@ -988,7 +988,86 @@ setTimeout(() => {
 
     </div>
 </section>
+<!-- PLAYER LOGIN -->
+<section id="player-login" style="
+    padding:80px 20px;
+    text-align:center;
+    background:#05070b;
+">
 
+    <div style="
+        max-width:450px;
+        margin:auto;
+        padding:30px;
+        border:1px solid #00f5ff;
+        border-radius:15px;
+        box-shadow:0 0 25px rgba(0,245,255,0.15);
+    ">
+
+        <h2 style="color:#00f5ff;">
+            PLAYER LOGIN
+        </h2>
+
+        <p style="color:#888;">
+            Login with your Player ID
+        </p>
+
+        <input
+            id="player-login-id"
+            type="text"
+            placeholder="PLAYER ID"
+            style="
+                width:100%;
+                box-sizing:border-box;
+                padding:14px;
+                margin:10px 0;
+                background:#0b0f16;
+                color:white;
+                border:1px solid #333;
+                border-radius:8px;
+            "
+        >
+
+        <input
+            id="player-login-password"
+            type="password"
+            placeholder="PASSWORD"
+            style="
+                width:100%;
+                box-sizing:border-box;
+                padding:14px;
+                margin:10px 0;
+                background:#0b0f16;
+                color:white;
+                border:1px solid #333;
+                border-radius:8px;
+            "
+        >
+
+        <button
+            onclick="playerLogin()"
+            style="
+                width:100%;
+                padding:14px;
+                margin-top:10px;
+                background:#00f5ff;
+                color:#05070b;
+                border:none;
+                border-radius:8px;
+                font-weight:bold;
+                cursor:pointer;
+            "
+        >
+            LOGIN
+        </button>
+
+        <p id="player-login-message"
+           style="margin-top:15px;">
+        </p>
+
+    </div>
+
+</section>
 <script>
 async function checkAdmin() {
 
