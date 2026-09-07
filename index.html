@@ -1218,17 +1218,31 @@ async function loadPlayerProfile() {
         }
         async function playerLogout() {
 
-    await supabaseClient.auth.signOut();
+    const { error } =
+        await supabaseClient.auth.signOut();
 
+    if (error) {
+        console.error("Logout error:", error);
+        alert("Logout failed: " + error.message);
+        return;
+    }
+
+    // Hide profile
     document.getElementById("player-profile").style.display = "none";
 
+    // Clear login fields
+    document.getElementById("player-login-id").value = "";
+    document.getElementById("player-login-password").value = "";
+
+    // Clear message
     document.getElementById("player-login-message").textContent =
         "✅ Logged out successfully.";
 
+    // Go back to login
     document.getElementById("player-login").scrollIntoView({
         behavior: "smooth"
     });
-        }
+}
     // Check Player ID in Players table
     const { data: player, error: playerError } =
         await supabaseClient
