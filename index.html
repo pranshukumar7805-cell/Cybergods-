@@ -1069,6 +1069,64 @@ setTimeout(() => {
 
 </section>
 <script>
+    async function playerLogin() {
+
+    const playerId =
+        document.getElementById("player-login-id").value.trim();
+
+    const password =
+        document.getElementById("player-login-password").value;
+
+    const message =
+        document.getElementById("player-login-message");
+
+    if (!playerId || !password) {
+        message.textContent = "❌ Enter Player ID and Password.";
+        return;
+    }
+
+    // Check Player ID in Players table
+    const { data: player, error: playerError } =
+        await supabaseClient
+            .from("Players")
+            .select("auth_user_id, player_id, name")
+            .eq("player_id", playerId)
+            .single();
+
+    if (playerError || !player) {
+        message.textContent = "❌ Player ID not found.";
+        return;
+    }
+
+    if (!player.auth_user_id) {
+        message.textContent =
+            "❌ This player account is not connected.";
+        return;
+    }
+
+    // Convert Player ID into internal Auth email
+    const internalEmail =
+        playerId.toLowerCase().replace(/[^a-z0-9]/g, "") +
+        "@cybergods.local";
+
+    // Login through Supabase Auth
+    const { error: loginError } =
+        await supabaseClient.auth.signInWithPassword({
+            email: internalEmail,
+            password: password
+        });
+
+    if (loginError) {
+        message.textContent =
+            "❌ Invalid Player ID or Password.";
+        return;
+    }
+
+    message.textContent =
+        "✅ Login successful! Welcome " +
+        player.name +
+        " 🔥";
+    }
 async function checkAdmin() {
 
     const dashboard =
