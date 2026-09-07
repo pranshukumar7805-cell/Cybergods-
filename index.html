@@ -1216,6 +1216,19 @@ async function loadPlayerProfile() {
         });
     }, 200);
         }
+        async function playerLogout() {
+
+    await supabaseClient.auth.signOut();
+
+    document.getElementById("player-profile").style.display = "none";
+
+    document.getElementById("player-login-message").textContent =
+        "✅ Logged out successfully.";
+
+    document.getElementById("player-login").scrollIntoView({
+        behavior: "smooth"
+    });
+        }
     // Check Player ID in Players table
     const { data: player, error: playerError } =
         await supabaseClient
