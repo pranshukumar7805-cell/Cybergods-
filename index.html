@@ -1136,7 +1136,86 @@ setTimeout(() => {
         message.textContent = "❌ Enter Player ID and Password.";
         return;
     }
+async function loadPlayerProfile() {
 
+    const profileSection =
+        document.getElementById("player-profile");
+
+    const profileName =
+        document.getElementById("profile-name");
+
+    const profileIgn =
+        document.getElementById("profile-ign");
+
+    const profileId =
+        document.getElementById("profile-id");
+
+    const profileRole =
+        document.getElementById("profile-role");
+
+    const profileStatus =
+        document.getElementById("profile-status");
+
+    const profilePhoto =
+        document.getElementById("profile-photo");
+
+    // Get logged-in user
+    const { data: { user }, error: userError } =
+        await supabaseClient.auth.getUser();
+
+    if (userError || !user) {
+        return;
+    }
+
+    // Find this player's profile
+    const { data: player, error } =
+        await supabaseClient
+            .from("Players")
+            .select("*")
+            .eq("auth_user_id", user.id)
+            .single();
+
+    if (error || !player) {
+        console.error(error);
+        return;
+    }
+
+    // Show player profile
+    profileSection.style.display = "block";
+
+    profileName.textContent = player.name;
+    profileIgn.textContent = player.ign;
+    profileId.textContent = player.player_id;
+    profileRole.textContent = player.role;
+    profileStatus.textContent = player.status.toUpperCase();
+
+    // Player photo
+    if (player.image_url) {
+
+        profilePhoto.innerHTML = `
+            <img
+                src="${player.image_url}"
+                alt="${player.name}"
+                style="
+                    width:100%;
+                    height:100%;
+                    object-fit:cover;
+                "
+            >
+        `;
+
+    } else {
+
+        profilePhoto.textContent = "CG";
+    }
+
+    // Scroll to profile
+    setTimeout(() => {
+        profileSection.scrollIntoView({
+            behavior: "smooth"
+        });
+    }, 200);
+        }
     // Check Player ID in Players table
     const { data: player, error: playerError } =
         await supabaseClient
