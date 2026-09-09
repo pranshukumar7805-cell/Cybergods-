@@ -1274,7 +1274,42 @@ async function loadPlayerProfile() {
         alert("Logout failed: " + error.message);
         return;
     }
+async function changePlayerPassword() {
 
+    const newPassword =
+        document.getElementById("new-player-password").value.trim();
+
+    const message =
+        document.getElementById("password-message");
+
+    if (!newPassword) {
+        message.textContent = "❌ Enter a new password.";
+        return;
+    }
+
+    if (newPassword.length < 8) {
+        message.textContent =
+            "❌ Password must be at least 8 characters.";
+        return;
+    }
+
+    const { error } =
+        await supabaseClient.auth.updateUser({
+            password: newPassword
+        });
+
+    if (error) {
+        console.error(error);
+        message.textContent =
+            "❌ Password change failed: " + error.message;
+        return;
+    }
+
+    message.textContent =
+        "✅ Password changed successfully! 🔐";
+
+    document.getElementById("new-player-password").value = "";
+}
     // Hide profile
     document.getElementById("player-profile").style.display = "none";
 
