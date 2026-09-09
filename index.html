@@ -1023,7 +1023,55 @@ setTimeout(() => {
         <p>PLAYER ID: <strong id="profile-id">-</strong></p>
         <p>ROLE: <strong id="profile-role">-</strong></p>
         <p>STATUS: <strong id="profile-status">-</strong></p>
+<!-- PASSWORD SETTINGS -->
+<div style="
+    margin-top:30px;
+    padding-top:25px;
+    border-top:1px solid #222;
+">
 
+    <h3 style="color:#00f5ff;">
+        🔐 SECURITY
+    </h3>
+
+    <input
+        id="new-player-password"
+        type="password"
+        placeholder="NEW PASSWORD"
+        style="
+            width:100%;
+            box-sizing:border-box;
+            padding:14px;
+            margin:10px 0;
+            background:#0b0f16;
+            color:white;
+            border:1px solid #333;
+            border-radius:8px;
+        "
+    >
+
+    <button
+        onclick="changePlayerPassword()"
+        style="
+            width:100%;
+            padding:13px;
+            margin-top:5px;
+            background:#00f5ff;
+            color:#05070b;
+            border:none;
+            border-radius:8px;
+            font-weight:bold;
+            cursor:pointer;
+        "
+    >
+        CHANGE PASSWORD
+    </button>
+
+    <p id="password-message"
+       style="margin-top:12px;">
+    </p>
+
+</div>
         <button
             onclick="playerLogout()"
             style="
