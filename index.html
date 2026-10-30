@@ -1218,7 +1218,7 @@ async function loadPlayerProfile() {
     // Find this player's profile
     const { data: player, error } =
         await supabaseClient
-            .from("players_public")
+            .from("players")
             .select("*")
             .eq("auth_user_id", user.id)
             .single();
